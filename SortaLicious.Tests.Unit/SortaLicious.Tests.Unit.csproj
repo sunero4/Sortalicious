@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CountingSortTests.cs" />
     <Compile Include="InsertionSortTests.cs" />
+    <Compile Include="MergeSortTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

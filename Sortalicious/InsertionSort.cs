@@ -15,7 +15,7 @@ namespace Sortalicious
 
         public List<T> SortAscending(List<T> values)
         {
-            if (values.Count == 1)
+            if (values.Count <= 1)
             {
                 return values;
             }

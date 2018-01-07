@@ -13,12 +13,14 @@ namespace SortaLicious.Tests.Unit
     {
         private ISorting<int> _uutInts;
         private ISorting<double> _uutDoubles;
+        private ISorting<float> _uutFloats;
 
         [SetUp]
         public void Setup()
         {
             _uutInts = new InsertionSort<int>();
             _uutDoubles = new InsertionSort<double>();
+            _uutFloats = new InsertionSort<float>();
         }
 
 
@@ -43,6 +45,18 @@ namespace SortaLicious.Tests.Unit
             var sorted = _uutDoubles.SortAscending(values.ToList());
             Assert.That(sorted.SequenceEqual(sortedValues.ToList()), "Resulting sequence does not match sorted sequence.");
         }
+
+        [TestCase(new float[] { 3.2F, 11.2F, 5.1F, 7.1F, 2.3F }, new float[] { 2.3F, 3.2F, 5.1F, 7.1F, 11.2F })]
+        [TestCase(new float[] { 3.2F, 11.2F, 3.2F, 7.1F, 2.3F }, new float[] { 2.3F, 3.2F, 3.2F, 7.1F, 11.2F })]
+        [TestCase(new float[] { 3.2F, 3.2F, 3.2F, 3.2F, 3.2F }, new float[] { 3.2F, 3.2F, 3.2F, 3.2F, 3.2F })]
+        [TestCase(new float[] { 11.2F, 7.1F, 5.1F, 3.2F, 2.3F }, new float[] { 2.3F, 3.2F, 5.1F, 7.1F, 11.2F })]
+        [TestCase(new float[] { 2.3F, 3.2F, 5.1F, 7.1F, 11.2F }, new float[] { 2.3F, 3.2F, 5.1F, 7.1F, 11.2F })]
+        public void InsertionSort__SortsAscending(float[] values, float[] sortedValues)
+        {
+            var sorted = _uutFloats.SortAscending(values.ToList());
+            Assert.That(sorted.SequenceEqual(sortedValues.ToList()), "Resulting sequence does not match sorted sequence.");
+        }
+
 
 
     }
