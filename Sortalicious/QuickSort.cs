@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sortalicious
 {
-    internal class QuickSort<T> : ISorting<T> where T : IComparable<T>, IEquatable<T>, IConvertible
+    public class QuickSort<T> : ISorting<T> where T : IComparable<T>, IEquatable<T>, IConvertible
     {
-        private List<T> _values;
-
         public List<T> SortDescending(List<T> values)
         {
             throw new NotImplementedException();
@@ -17,43 +15,38 @@ namespace Sortalicious
 
         public List<T> SortAscending(List<T> values)
         {
-            _values = values;
-
+            QuickSortAscending(0, values.Count - 1, values);
+            return values;
         }
 
-        private int Partition(int pivot, int left, int right)
+        private int Partition(ref List<T> values, int low, int high)
         {
-            var leftIndex = left;
-            var rightIndex = right;
+            var pivot = values[high];
+            var smallerIndex = low - 1;
 
-            while (leftIndex < rightIndex)
+            for (int i = low; i < high; i++)
             {
-                while (_values[leftIndex].CompareTo(_values[pivot]) < 0)
+                if (values[i].CompareTo(pivot) <= 0)
                 {
-                    leftIndex++;
-                }
-                while (_values[rightIndex].CompareTo(_values[pivot]) > 0 && rightIndex > 0)
-                {
-                    rightIndex--;
-                }
-                if (leftIndex < rightIndex)
-                {
-                    Swap(leftIndex, rightIndex, ref _values);
+                    smallerIndex++;
+
+                    Swap(smallerIndex, i, ref values);
                 }
             }
-            Swap(leftIndex, rightIndex, ref _values);
-            return leftIndex;
+
+            Swap(smallerIndex + 1, high, ref values);
+
+            return smallerIndex + 1;
         }
 
-        private void QuickSortAscending(int left, int right)
+        private void QuickSortAscending(int low, int high, List<T> values)
         {
-            if (left - right <= 0)
+            if (low < high)
             {
-                return;
-            }
-            else
-            {
-                var pivot = 
+                var partition = Partition(ref values, low, high);
+
+                QuickSortAscending(low, partition - 1, values);
+                QuickSortAscending(partition + 1, high, values);
             }
         }
 
